@@ -29,6 +29,9 @@ define Package/luci-app-vlmcsd/description
 	This package contains LuCI configuration pages for vlmcsd.
 endef
 
+define Build/Compile
+endef
+
 define Package/luci-app-vlmcsd/postinst
 #!/bin/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
