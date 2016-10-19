@@ -18,7 +18,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/luci-app-vlmcsd
 	SECTION:=luci
 	CATEGORY:=LuCI
-	SUBMENU:=Applications
+	SUBMENU:=3. Applications
 	TITLE:=LuCI support for vlmcsd
 	DEPENDS:=+vlmcsd +dnsmasq
 	PKGARCH:=all
