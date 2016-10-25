@@ -44,10 +44,8 @@ define Package/luci-app-vlmcsd/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	$(INSTALL_DIR) $(1)/etc/config
 
 	$(INSTALL_BIN) ./files/luci-app-vlmcsd $(1)/etc/uci-defaults/luci-app-vlmcsd
-	$(INSTALL_CONF) ./files/vlmcsd.config $(1)/etc/config/vlmcsd
 	$(INSTALL_DATA) ./files/luci/i18n/vlmcsd.zh-cn.lmo $(1)/usr/lib/lua/luci/i18n/vlmcsd.zh-cn.lmo
 	$(INSTALL_DATA) ./files/luci/model/vlmcsd.lua $(1)/usr/lib/lua/luci/model/cbi/vlmcsd.lua
 	$(INSTALL_DATA) ./files/luci/controller/vlmcsd.lua $(1)/usr/lib/lua/luci/controller/vlmcsd.lua

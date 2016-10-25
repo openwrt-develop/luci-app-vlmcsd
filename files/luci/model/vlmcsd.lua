@@ -23,7 +23,8 @@ autoactivate = s:option(Flag, "autoactivate", translate("Auto activate"))
 autoactivate.rmempty = false
 
 local file = "/etc/vlmcsd.ini"
-config = s:option(TextValue, "config", translate("Config File"), translate("This file is /etc/vlmcsd.ini."), "")
+config = s:option(TextValue, "config", translate("Config file"), translate("This file is /etc/vlmcsd.ini."), "")
+config.size = 100
 config.rows = 20
 config.wrap = "off"
 
@@ -36,25 +37,14 @@ function config.write(self, section, value)
 	nixio.fs.writefile(file, value)
 end
 
-function enable.write(self, section, value)
-	if value == "1" then
-		luci.sys.call("/etc/init.d/vlmcsd enable >/dev/null")
-		luci.sys.call("/etc/init.d/vlmcsd start >/dev/null")
-		luci.sys.call("/etc/init.d/dnsmasq restart >/dev/null")
-	else
-		luci.sys.call("/etc/init.d/vlmcsd stop >/dev/null")
-		luci.sys.call("/etc/init.d/vlmcsd disable >/dev/null")
-		luci.sys.call("/etc/init.d/dnsmasq restart >/dev/null")
-	end
-	Flag.write(self, section, value)
-end
-
 function autoactivate.write(self, section, value)
 	if value == "1" then
 		luci.sys.call("sed -i '/srv-host=_vlmcs._tcp.lan/d' /etc/dnsmasq.conf")
 		luci.sys.call("echo srv-host=_vlmcs._tcp.lan,".. hostname ..".lan,1688,0,100 >> /etc/dnsmasq.conf")
+		luci.sys.call("/etc/init.d/dnsmasq restart")
 	else
 		luci.sys.call("sed -i '/srv-host=_vlmcs._tcp.lan/d' /etc/dnsmasq.conf")
+		luci.sys.call("/etc/init.d/dnsmasq restart")
 	end
 	Flag.write(self, section, value)
 end
