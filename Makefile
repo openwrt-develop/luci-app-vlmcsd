@@ -17,7 +17,7 @@ define Package/luci-app-vlmcsd
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
 	TITLE:=LuCI support for vlmcsd
-	DEPENDS:=+vlmcsd +dnsmasq
+	DEPENDS:=+vlmcsd +PACKAGE_dnsmasq:dnsmasq +PACKAGE_dnsmasq-dhcpv6:dnsmasq-dhcpv6 +PACKAGE_dnsmasq-full:dnsmasq-full 
 	PKGARCH:=all
 	MAINTAINER:=paradislover
 endef

@@ -2,9 +2,9 @@ local m, s
 
 local running=(luci.sys.call("pidof vlmcsd > /dev/null") == 0)
 if running then	
-	m = Map("vlmcsd", translate("vlmcsd config"), translate("Vlmcsd is running."))
+	m = Map("vlmcsd", translate("KMS Emulator"), translate("Vlmcsd is running."))
 else
-	m = Map("vlmcsd", translate("vlmcsd config"), translate("Vlmcsd is not running."))
+	m = Map("vlmcsd", translate("KMS Emulator"), translate("Vlmcsd is not running."))
 end
 
 s = m:section(TypedSection, "vlmcsd", "")
@@ -22,8 +22,9 @@ local hostname = luci.model.uci.cursor():get_first("system", "system", "hostname
 autoactivate = s:option(Flag, "autoactivate", translate("Auto activate"))
 autoactivate.rmempty = false
 
-config = s:option(Value, "config", translate("configfile"), translate("This file is /etc/vlmcsd.ini."), "")
+config = s:option(Value, "config", translate("Config File"), translate("This file is /etc/vlmcsd.ini."), "")
 config.template = "cbi/tvalue"
+config.size = 80
 config.rows = 5
 config.wrap = "off"
 
