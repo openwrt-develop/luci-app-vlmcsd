@@ -15,8 +15,9 @@ s.anonymous = true
 
 s:tab("basic", translate("Basic Setting"))
 s:taboption("basic", Flag, "enable", translate("Start"))
-s:taboption("basic", Flag, "use_conf_file", translate("Using Config File"))
+s:taboption("basic", Flag, "use_conf_file", translate("Using Config File")).rmempty = false
 o = s:taboption("basic", Value, "port", translate("Local Port"))
+o:depends("use_conf_file", "")
 o.datatype = "port"
 o.default = 1688
 o.placeholder = 1688

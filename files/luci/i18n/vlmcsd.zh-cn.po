@@ -6,8 +6,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "vlmcsd config"
-msgstr "vlmcsd 设置"
+msgid "KMS Emulator"
+msgstr "KMS服务器"
 
 msgid "Vlmcsd is running."
 msgstr "Vlmcsd 运行中。"
@@ -15,13 +15,19 @@ msgstr "Vlmcsd 运行中。"
 msgid "Vlmcsd is not running."
 msgstr "Vlmcsd 未运行."
 
+msgid "Basic Setting"
+msgstr "基本配置"
+
 msgid "Enable"
 msgstr "启用"
+
+msgid "Using Config File"
+msgstr "使用配置文件"
 
 msgid "Auto activate"
 msgstr "自动激活"
 
-msgid "configfile"
+msgid "Config File"
 msgstr "配置文件"
 
 msgid "This file is /etc/vlmcsd.ini."
