@@ -32,7 +32,7 @@ endef
 define Package/luci-app-vlmcsd/postinst
 #!/bin/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	( . /etc/uci-defaults/luci-app-vlmcsd ) && rm -f /etc/uci-defaults/luci-app-vlmcsd
+	( . /etc/uci-defaults/luci-vlmcsd ) && rm -f /etc/uci-defaults/luci-vlmcsd
 	rm -f /tmp/luci-indexcache
 	sed -i '/srv-host=_vlmcs._tcp.lan/d' /etc/dnsmasq.conf
 fi
@@ -52,7 +52,7 @@ define Package/luci-app-vlmcsd/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 
 	$(INSTALL_BIN) ./files/etc/init.d/vlmcsd $(1)/etc/init.d/vlmcsd
-	$(INSTALL_BIN) ./files/luci-app-vlmcsd $(1)/etc/uci-defaults/luci-app-vlmcsd
+	$(INSTALL_BIN) ./files/luci-vlmcsd $(1)/etc/uci-defaults/luci-vlmcsd
 	$(INSTALL_DATA) ./files/luci/i18n/vlmcsd.zh-cn.lmo $(1)/usr/lib/lua/luci/i18n/vlmcsd.zh-cn.lmo
 	$(INSTALL_DATA) ./files/luci/model/vlmcsd.lua $(1)/usr/lib/lua/luci/model/cbi/vlmcsd.lua
 	$(INSTALL_DATA) ./files/luci/controller/vlmcsd.lua $(1)/usr/lib/lua/luci/controller/vlmcsd.lua
