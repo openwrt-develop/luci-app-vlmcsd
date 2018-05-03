@@ -10,7 +10,7 @@ msgid "KMS Emulator"
 msgstr "KMS服务器"
 
 msgid "Vlmcsd is running."
-msgstr "Vlmcsd 运行中。"
+msgstr "Vlmcsd 运行中."
 
 msgid "Vlmcsd is not running."
 msgstr "Vlmcsd 未运行."
@@ -31,4 +31,4 @@ msgid "Config File"
 msgstr "配置文件"
 
 msgid "This file is /etc/vlmcsd.ini."
-msgstr "这个文件是/etc/vlmcsd.ini。"
+msgstr "这个文件是/etc/vlmcsd.ini."
