@@ -26,6 +26,14 @@ define Package/luci-app-vlmcsd/description
 	This package contains LuCI configuration pages for vlmcsd.
 endef
 
+define Build/Prepare
+	$(foreach po,$(wildcard ${CURDIR}/files/luci/i18n/*.po), \
+		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
+endef
+
+define Build/Configure
+endef
+
 define Build/Compile
 endef
 
@@ -53,7 +61,7 @@ define Package/luci-app-vlmcsd/install
 
 	$(INSTALL_BIN) ./files/etc/init.d/vlmcsd $(1)/etc/init.d/vlmcsd
 	$(INSTALL_BIN) ./files/luci-vlmcsd $(1)/etc/uci-defaults/luci-vlmcsd
-	$(INSTALL_DATA) ./files/luci/i18n/vlmcsd.zh-cn.lmo $(1)/usr/lib/lua/luci/i18n/vlmcsd.zh-cn.lmo
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/vlmcsd.zh-cn.lmo $(1)/usr/lib/lua/luci/i18n/vlmcsd.zh-cn.lmo
 	$(INSTALL_DATA) ./files/luci/model/vlmcsd.lua $(1)/usr/lib/lua/luci/model/cbi/vlmcsd.lua
 	$(INSTALL_DATA) ./files/luci/controller/vlmcsd.lua $(1)/usr/lib/lua/luci/controller/vlmcsd.lua
 endef
