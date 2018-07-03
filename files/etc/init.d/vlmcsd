@@ -19,15 +19,13 @@ start()
 	config_load vlmcsd
 	config_foreach get_config vlmcsd
 	if [ $use_conf_file -eq 1 ]; then
-		$PROG -i $CONFIG
+		service_start $PROG -i $CONFIG
 	else
-		$PROG -P $port
+		service_start $PROG -P $port
 	fi
-	iptables -A INPUT -p tcp --dport 1688 -j ACCEPT
 }
 
 stop()
 {
-	killall vlmcsd
-	iptables -D INPUT -p tcp --dport 1688 -j ACCEPT
+	service_stop $PROG
 }
