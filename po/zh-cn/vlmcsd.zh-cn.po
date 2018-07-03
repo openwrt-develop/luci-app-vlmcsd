@@ -21,14 +21,11 @@ msgstr "基本配置"
 msgid "Enable"
 msgstr "启用"
 
-msgid "Using Config File"
-msgstr "使用配置文件"
-
 msgid "Auto activate"
-msgstr "自动激活"
+msgstr "自动激活局域网客户端"
 
 msgid "Config File"
 msgstr "配置文件"
 
 msgid "This file is /etc/vlmcsd.ini."
-msgstr "这个文件是/etc/vlmcsd.ini."
+msgstr "这个文件在 /etc/vlmcsd.ini 下，可以增加新的产品主密钥。"

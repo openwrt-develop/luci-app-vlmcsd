@@ -1,69 +1,10 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-app-vlmcsd
-PKG_VERSION:=1.0.0
-PKG_RELEASE:=1
+LUCI_TITLE:=LuCI page for KMS
+LUCI_DEPENDS:=+vlmcsd
+PKG_VERSION:=1.0
+PKG_RELEASE:=2
 
-PKG_MAINTAINER:=paradislover <wxu1986@gmail.com>
-PKG_LICENSE:=GPLv3
-PKG_LICENSE_FILES:=LICENSE
+include $(TOPDIR)/feeds/luci/luci.mk
 
-PKG_BUILD_PARALLEL:=1
-
-include $(INCLUDE_DIR)/package.mk
-
-define Package/luci-app-vlmcsd
-	SECTION:=luci
-	CATEGORY:=LuCI
-	SUBMENU:=3. Applications
-	TITLE:=LuCI support for vlmcsd
-	DEPENDS:=+vlmcsd +PACKAGE_dnsmasq:dnsmasq +PACKAGE_dnsmasq-dhcpv6:dnsmasq-dhcpv6 +PACKAGE_dnsmasq-full:dnsmasq-full 
-	PKGARCH:=all
-	MAINTAINER:=paradislover
-endef
-
-define Package/luci-app-vlmcsd/description
-	This package contains LuCI configuration pages for vlmcsd.
-endef
-
-define Build/Prepare
-	$(foreach po,$(wildcard ${CURDIR}/files/luci/i18n/*.po), \
-		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
-endef
-
-define Build/Configure
-endef
-
-define Build/Compile
-endef
-
-define Package/luci-app-vlmcsd/postinst
-#!/bin/sh
-if [ -z "$${IPKG_INSTROOT}" ]; then
-	( . /etc/uci-defaults/luci-vlmcsd ) && rm -f /etc/uci-defaults/luci-vlmcsd
-	rm -f /tmp/luci-indexcache
-	sed -i '/srv-host=_vlmcs._tcp.lan/d' /etc/dnsmasq.conf
-fi
-exit 0
-endef
-
-define Package/luci-app-vlmcsd/install
-	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-
-	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_DATA) ./files/etc/vlmcsd.ini $(1)/etc/vlmcsd.ini
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_DATA) ./files/etc/config/vlmcsd $(1)/etc/config/vlmcsd
-	$(INSTALL_DIR) $(1)/etc/init.d
-
-	$(INSTALL_BIN) ./files/etc/init.d/vlmcsd $(1)/etc/init.d/vlmcsd
-	$(INSTALL_BIN) ./files/luci-vlmcsd $(1)/etc/uci-defaults/luci-vlmcsd
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/vlmcsd.zh-cn.lmo $(1)/usr/lib/lua/luci/i18n/vlmcsd.zh-cn.lmo
-	$(INSTALL_DATA) ./files/luci/model/vlmcsd.lua $(1)/usr/lib/lua/luci/model/cbi/vlmcsd.lua
-	$(INSTALL_DATA) ./files/luci/controller/vlmcsd.lua $(1)/usr/lib/lua/luci/controller/vlmcsd.lua
-endef
-
-$(eval $(call BuildPackage,luci-app-vlmcsd))
+# call BuildPackage - OpenWrt buildroot signature
