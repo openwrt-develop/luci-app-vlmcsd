@@ -28,7 +28,7 @@ start_service() {
 	fi
 
 	procd_open_instance
-	procd_set_param command /usr/bin/vlmcsd -D -i /etc/vlmcsd.ini -l syslog -L 0.0.0.0:1688 -L [::]:1688
+	procd_set_param command /usr/bin/vlmcsd -D -i /etc/vlmcsd.ini -L 0.0.0.0:1688 -L [::]:1688
 	procd_append_param command -l syslog
 
 	procd_set_param respawn
@@ -39,6 +39,11 @@ start_service() {
 	procd_close_instance
 
 	echo "KMS Server has started."
+}
+
+reload_service() {
+	stop
+	start
 }
 
 service_triggers() {

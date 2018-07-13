@@ -2,15 +2,20 @@ local fs = require "nixio.fs"
 
 local m, s
 
-local running=(luci.sys.call("pidof vlmcsd > /dev/null") == 0)
-if running then	
-	m = Map("vlmcsd", translate("KMS Emulator"), translate("Vlmcsd is running."))
+if luci.sys.call("pidof vlmcsd >/dev/null") == 0 then
+	status = translate("<b><font color=green>Vlmcsd is running.</font></b>")
 else
-	m = Map("vlmcsd", translate("KMS Emulator"), translate("Vlmcsd is not running."))
+	status = translate("<b><font color=red>Vlmcsd is not running.</font></b>")
 end
 
+m = Map("vlmcsd")
+m.title = translate("KMS Server")
+m.description = translate("A KMS Serever Emulator to active your Windows or Office")
+
 s = m:section(TypedSection, "vlmcsd")
+s.addremove = false
 s.anonymous = true
+s.description = translate(string.format("%s<br /><br />", status))
 
 s:tab("basic", translate("Basic Setting"))
 enable = s:taboption("basic", Flag, "enabled", translate("Enable"))
