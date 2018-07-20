@@ -2,18 +2,12 @@
 # Copyright (c) 2011-2015 OpenWrt.org
 
 START=90
-
 USE_PROCD=1
 
-get_config() {
+start_instance() {
 	config_get_bool enabled $1 enabled 0
 	config_get autoactivate $1 autoactivate 1
-}
-
-start_service() {
-	config_load vlmcsd
-	config_foreach get_config vlmcsd
-	[ $enabled -eq 0 ] && exit 0
+	[ $enabled -eq 0 ] && return 0
 
 	HOSTNAME=$(uci get system.@system[0].hostname)
 	host_name=$(awk -F ',' '/^[ \t]*srv-host=_vlmcs\._tcp/{print $2}' /etc/dnsmasq.conf)
@@ -37,15 +31,13 @@ start_service() {
 	procd_set_param stdout 1
 	procd_set_param stderr 1
 	procd_close_instance
-
-	echo "KMS Server has started."
 }
 
-reload_service() {
-	stop
-	start
+start_service() {
+	config_load vlmcsd
+	config_foreach start_instance vlmcsd
 }
 
 service_triggers() {
-	procd_add_reload_trigger vlmcsd
+	procd_add_reload_trigger "vlmcsd"
 }
